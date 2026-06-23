@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayushi Lal — Bioinformatician</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d1219;
+    --ink-2:#141b25;
+    --panel:#161e29;
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(255,255,255,.14);
+    --fg:#e6ebf0;
+    --fg-dim:#9aa7b4;
+    --fg-faint:#5f6e7d;
+    --teal:#2dd4bf;
+    --teal-deep:#21918c;
+    --yellow:#fde725;
+    --violet:#7c5cff;
+    --violet-deep:#440154;
+    --r:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);
+    color:var(--fg);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .mono{font-family:"JetBrains Mono",monospace}
+  .disp{font-family:"Space Grotesk",system-ui,sans-serif}
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--teal);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(13,18,25,.72);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s;
+  }
+  nav.scrolled{border-bottom-color:var(--line)}
+  .nav-in{
+    max-width:1080px;margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{font-family:"Space Grotesk";font-weight:700;font-size:17px;letter-spacing:-.01em}
+  .brand span{color:var(--teal)}
+  .nav-links{display:flex;gap:30px;font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:.04em}
+  .nav-links a{color:var(--fg-dim);transition:color .2s}
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:680px){.nav-links{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:80px;overflow:hidden}
+  #binfield{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 90% at 78% 30%, transparent 0%, rgba(13,18,25,.35) 45%, var(--ink) 78%);
+  }
+  .hero-in{position:relative;z-index:2;width:100%}
+  .hero h1{
+    font-family:"Space Grotesk";font-weight:700;
+    font-size:clamp(42px,8vw,86px);line-height:.98;letter-spacing:-.03em;
+    margin:18px 0 0;
+  }
+  .hero h1 .l2{color:var(--fg-dim)}
+  .role{
+    margin-top:22px;font-size:clamp(19px,2.4vw,25px);line-height:1.45;
+    max-width:600px;color:var(--fg);
+  }
+  .role b{font-weight:500;color:var(--teal)}
+  .hero-meta{
+    margin-top:34px;display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .chip{
+    font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.03em;
+    color:var(--fg-dim);border:1px solid var(--line-2);border-radius:100px;
+    padding:7px 14px;background:rgba(255,255,255,.02);
+  }
+  .scroll-cue{
+    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;
+    color:var(--fg-faint);text-transform:uppercase;display:flex;flex-direction:column;
+    align-items:center;gap:8px;
+  }
+  .scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--teal),transparent);animation:cue 2s ease-in-out infinite}
+  @keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;z-index:2;background:var(--ink)}
+  .band{padding:108px 0}
+  .band-alt{background:var(--ink-2)}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:48px}
+  .sec-head .num{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--teal);letter-spacing:.1em}
+  .sec-head h2{font-family:"Space Grotesk";font-weight:600;font-size:clamp(26px,4vw,40px);letter-spacing:-.02em;line-height:1}
+  .lead{font-size:21px;line-height:1.55;max-width:680px;color:var(--fg-dim)}
+  .lead em{font-style:italic;color:var(--fg)}
+
+  /* ---------- EXPERIENCE ---------- */
+  .xp{
+    border-top:1px solid var(--line);padding:36px 0;
+    display:grid;grid-template-columns:230px 1fr;gap:40px;
+  }
+  .xp:last-child{border-bottom:1px solid var(--line)}
+  .xp-when{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--fg-faint);letter-spacing:.03em}
+  .xp-role{font-family:"Space Grotesk";font-weight:600;font-size:23px;letter-spacing:-.01em;margin-bottom:4px}
+  .xp-org{color:var(--teal);font-size:17px;margin-bottom:20px;font-family:"JetBrains Mono",monospace;letter-spacing:.01em}
+  .xp ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+  .xp li{position:relative;padding-left:24px;font-size:17.5px;line-height:1.5;color:var(--fg-dim)}
+  .xp li::before{content:"";position:absolute;left:0;top:11px;width:8px;height:8px;border:1.5px solid var(--teal-deep);background:transparent}
+  .xp li b{color:var(--fg);font-weight:500;font-family:"Newsreader"}
+  @media(max-width:680px){.xp{grid-template-columns:1fr;gap:14px}}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:680px){.skills-grid{grid-template-columns:1fr}}
+  .skill{
+    border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;
+    background:var(--panel);transition:border-color .25s,transform .25s;
+  }
+  .skill:hover{border-color:var(--teal-deep);transform:translateY(-3px)}
+  .skill h3{font-family:"Space Grotesk";font-weight:600;font-size:19px;margin-bottom:10px;letter-spacing:-.01em}
+  .skill p{font-size:16px;line-height:1.5;color:var(--fg-dim)}
+  .skill .tools{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px}
+  .tool{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--teal);background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.2);border-radius:5px;padding:3px 8px}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  @media(max-width:680px){.proj-grid{grid-template-columns:1fr}}
+  .proj{
+    display:block;border:1px solid var(--line);border-radius:var(--r);
+    padding:28px 26px;background:var(--panel);position:relative;overflow:hidden;
+    transition:border-color .25s,transform .25s;
+  }
+  .proj:hover{border-color:var(--violet);transform:translateY(-3px)}
+  .proj .tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint)}
+  .proj h3{font-family:"Space Grotesk";font-weight:600;font-size:21px;margin:12px 0 8px;letter-spacing:-.01em}
+  .proj p{font-size:16px;color:var(--fg-dim);line-height:1.5}
+  .proj .go{margin-top:18px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--teal);display:inline-flex;align-items:center;gap:7px}
+  .proj .go .arr{transition:transform .25s}
+  .proj:hover .go .arr{transform:translateX(4px)}
+
+  /* ---------- CONTACT ---------- */
+  .contact{text-align:center;padding:120px 0}
+  .contact h2{font-family:"Space Grotesk";font-weight:700;font-size:clamp(32px,6vw,58px);letter-spacing:-.025em;line-height:1.02}
+  .contact p{margin:20px auto 38px;max-width:480px;color:var(--fg-dim);font-size:19px}
+  .links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .lnk{
+    font-family:"JetBrains Mono",monospace;font-size:14px;letter-spacing:.02em;
+    border:1px solid var(--line-2);border-radius:100px;padding:12px 24px;
+    color:var(--fg);transition:all .22s;
+  }
+  .lnk:hover{background:var(--teal);color:var(--ink);border-color:var(--teal)}
+  .lnk.primary{background:var(--teal);color:var(--ink);border-color:var(--teal)}
+  .lnk.primary:hover{background:transparent;color:var(--teal)}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--fg-faint);letter-spacing:.04em}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue::after{animation:none}
+    #binfield{display:none}
+  }
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand">Ayushi<span>.</span>Lal</a>
+    <div class="nav-links">
+      <a href="#work">work</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="binfield"></canvas>
+  <div class="hero-in wrap">
+    <div class="eyebrow">Bioinformatician</div>
+    <h1>Ayushi Lal<br><span class="l2">reads the tissue.</span></h1>
+    <p class="role">I build <b>bulk, spatial &amp; single-cell RNA-seq</b> pipelines that turn millions of sequencing reads into results researchers can act on.</p>
+    <div class="hero-meta">
+      <span class="chip">spatial transcriptomics</span>
+      <span class="chip">snRNA-seq</span>
+      <span class="chip">bulk RNA-seq</span>
+      <span class="chip">Python · R · HPC</span>
+    </div>
+  </div>
+  <div class="scroll-cue">scroll</div>
+</header>
+
+<section class="band" id="work">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">01</span><h2>Experience</h2></div>
+    <p class="lead reveal" style="margin-bottom:46px">I'm a bioinformatician at <em>UMMC's Molecular &amp; Genomics Core Facility</em>, where I run analysis end-to-end for different PIs and their labs: from raw reads to clear, interpretable results.</p>
+
+    <div class="xp reveal">
+      <div class="xp-when">Current</div>
+      <div>
+        <div class="xp-role">Bioinformatician</div>
+        <div class="xp-org">Molecular &amp; Genomics Core Facility · UMMC</div>
+        <ul>
+          <li>Design and maintain end-to-end pipelines across <b>bulk RNA-seq, single-nucleus RNA-seq, and spatial transcriptomics (Visium HD)</b>, from raw reads through final results.</li>
+          <li>Run differential expression and pathway analysis with rigorous, interpretable designs — <b>DESeq2, PyDESeq2, clusterProfiler, and GSEA</b>.</li>
+          <li>Built and scaled a <b>Python spatial pipeline on HPC</b> handling ~8 million bins across 16 samples, covering QC, normalization, clustering, cell-type annotation, and spatial visualization.</li>
+          <li>Deliver <b>publication-ready figures and methods sections</b>, working directly with PIs, lab managers, and collaborators.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-alt" id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">02</span><h2>What I do</h2></div>
+    <div class="skills-grid">
+      <div class="skill reveal">
+        <h3>Bulk, spatial &amp; single-cell</h3>
+        <p>Bulk RNA-seq, Visium HD, and snRNA-seq from raw matrices through QC, clustering, annotation, and spatially-resolved analysis.</p>
+        <div class="tools"><span class="tool">spatialdata</span><span class="tool">scanpy</span><span class="tool">squidpy</span><span class="tool">Seurat</span><span class="tool">STAR</span><span class="tool">Salmon</span></div>
+      </div>
+      <div class="skill reveal">
+        <h3>Differential expression</h3>
+        <p>Rigorous, interpretable differential expression — careful experimental designs, interaction terms, stratification, and concordance checks.</p>
+        <div class="tools"><span class="tool">DESeq2</span><span class="tool">PyDESeq2</span><span class="tool">edgeR-style QC</span></div>
+      </div>
+      <div class="skill reveal">
+        <h3>Pathway &amp; enrichment</h3>
+        <p>Turning gene lists into mechanism — GSEA, over-representation, and reproducible enrichment reporting for manuscripts.</p>
+        <div class="tools"><span class="tool">clusterProfiler</span><span class="tool">GSEA</span><span class="tool">ReactomePA</span><span class="tool">enrichR</span></div>
+      </div>
+      <div class="skill reveal">
+        <h3>Reproducible pipelines</h3>
+        <p>HPC-scale workflows that other people can re-run: environment-pinned, scheduler-aware, and documented for publication.</p>
+        <div class="tools"><span class="tool">Python</span><span class="tool">R</span><span class="tool">SLURM</span><span class="tool">conda</span><span class="tool">Nextflow</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">03</span><h2>Selected projects</h2></div>
+    <p class="lead reveal" style="margin-bottom:42px">A few things from my graduate work and beyond. More on <a href="https://github.com/ayushilal20/" style="color:var(--teal);border-bottom:1px solid var(--teal-deep)">GitHub</a>.</p>
+    <div class="proj-grid">
+      <a class="proj reveal" href="https://sites.google.com/view/ayushilal/outbreak-investigator">
+        <span class="tag">Genomic epidemiology</span>
+        <h3>Outbreak Investigator</h3>
+        <p>Tracing transmission and characterizing pathogen spread from sequencing data.</p>
+        <span class="go">view project <span class="arr">→</span></span>
+      </a>
+      <a class="proj reveal" href="https://sites.google.com/view/ayushilal/ngs_wes_workflow">
+        <span class="tag">NGS · variant calling</span>
+        <h3>NGS WES Workflow</h3>
+        <p>Whole-exome pipeline: alignment, variant calling, and annotation end-to-end.</p>
+        <span class="go">view project <span class="arr">→</span></span>
+      </a>
+      <a class="proj reveal" href="https://sites.google.com/view/ayushilal/protein-stability-prediction">
+        <span class="tag">Machine learning</span>
+        <h3>Protein Stability Prediction</h3>
+        <p>Predicting stability changes from sequence and structural features.</p>
+        <span class="go">view project <span class="arr">→</span></span>
+      </a>
+      <a class="proj reveal" href="https://sites.google.com/view/ayushilal/eeg_analysis">
+        <span class="tag">Signal · statistics</span>
+        <h3>EEG Analysis</h3>
+        <p>Extracting patterns from neural time-series with statistical methods.</p>
+        <span class="go">view project <span class="arr">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="contact band-alt" id="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="display:block;margin-bottom:18px">Open to interesting problems</div>
+    <h2 class="reveal">Let's look at your data.</h2>
+    <p class="reveal">Always glad to talk transcriptomics, pipelines, or a collaboration. The fastest way to reach me is email.</p>
+    <div class="links reveal">
+      <a class="lnk primary" href="mailto:lalayushi20usa@gmail.com">email me</a>
+      <a class="lnk" href="https://www.linkedin.com/in/ayushilal02/">LinkedIn</a>
+      <a class="lnk" href="https://github.com/ayushilal20/">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="yr"></span> Ayushi Lal · Bioinformatician · Built from scratch</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // nav border on scroll
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
+
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el)});
+
+  // ---- spatial bin field ----
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    const cv=document.getElementById('binfield'),ctx=cv.getContext('2d');
+    let W,H,cells,cols,rows;const SIZE=26,GAP=3;
+    const viridis=[[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]];
+    function lerp(a,b,t){return a+(b-a)*t}
+    function vir(t){t=Math.max(0,Math.min(1,t));const s=t*4,i=Math.floor(s),f=s-i;const c0=viridis[i],c1=viridis[Math.min(4,i+1)];return `rgb(${lerp(c0[0],c1[0],f)|0},${lerp(c0[1],c1[1],f)|0},${lerp(c0[2],c1[2],f)|0})`}
+    function build(){
+      W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+      const ow=cv.offsetWidth,oh=cv.offsetHeight;
+      cols=Math.ceil(ow/(SIZE+GAP));rows=Math.ceil(oh/(SIZE+GAP));
+      cells=[];
+      // a couple of "expression hotspots"
+      const hot=[{x:ow*0.74,y:oh*0.34,r:oh*0.42},{x:ow*0.9,y:oh*0.7,r:oh*0.3}];
+      for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+        const x=c*(SIZE+GAP),y=r*(SIZE+GAP);
+        let v=0;hot.forEach(h=>{const d=Math.hypot(x-h.x,y-h.y);v=Math.max(v,1-d/h.r)});
+        v=Math.max(0,v)+Math.random()*0.12;
+        cells.push({x,y,v:Math.min(1,v),ph:Math.random()*Math.PI*2,sp:0.6+Math.random()*0.8});
+      }
+    }
+    function draw(t){
+      ctx.clearRect(0,0,cv.offsetWidth,cv.offsetHeight);
+      t*=0.001;
+      for(const c of cells){
+        const pulse=0.5+0.5*Math.sin(t*c.sp+c.ph);
+        const intensity=c.v*pulse;
+        if(intensity<0.04){ // dim grid cell
+          ctx.fillStyle='rgba(255,255,255,0.022)';
+          ctx.fillRect(c.x,c.y,SIZE,SIZE);
+        }else{
+          ctx.globalAlpha=0.12+intensity*0.72;
+          ctx.fillStyle=vir(0.25+c.v*0.75);
+          ctx.fillRect(c.x,c.y,SIZE,SIZE);
+          ctx.globalAlpha=1;
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    build();requestAnimationFrame(draw);
+    let to;addEventListener('resize',()=>{clearTimeout(to);to=setTimeout(build,150)});
+  }
+</script>
+</body>
+</html>
